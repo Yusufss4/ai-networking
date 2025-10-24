@@ -52,7 +52,9 @@ public:
      */
     cv::Mat get_canvas();
 
-private:
+    bool is_drawing() const;
+
+  private:
     /**
      * @brief Static C-style callback for OpenCV mouse events.
      * This function acts as a bridge to our class instance.
@@ -74,7 +76,7 @@ private:
     cv::Point m_last_point;
 
     // --- Thread Safety ---
-    std::mutex m_canvas_mutex; // Protects m_canvas and mouse state
+    mutable std::mutex m_canvas_mutex; // Protects m_canvas and mouse state
 };
 
 #endif // RENDERER_H

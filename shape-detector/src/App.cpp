@@ -14,7 +14,7 @@ using json = nlohmann::json;
 #include <iostream>
 
 App::App(const std::string &config_path)
-    : m_is_running(true) // Start in a running state
+    : m_inference_active(true) // Start in a running state
 {
   try {
     // 1. Load configuration
@@ -66,39 +66,43 @@ void App::load_config(const std::string &config_path) {
 }
 
 void App::run() {
-  // This is the main application loop
   while (true) {
     // 1. Handle user input
     char key = m_renderer->get_key_press();
     if (key == 'q') {
-      break; // Exit loop
+      break;
     }
     if (key == 'c') {
       m_renderer->clear_canvas();
-      m_is_running = true;    // Re-enable inference
-      m_last_prediction = {}; // Reset the last prediction
+      m_inference_active = true; // Re-enable inference
+      m_last_prediction = {};
     }
 
-    // 2. Run inference (only if not stopped)
-    if (m_is_running) {
-      // Get the current drawing from the renderer
+    // --- NEW LOGIC ---
+    // Get the user's drawing state
+    bool is_user_drawing = m_renderer->is_drawing();
+
+    // If the user starts drawing again, unlock the inference
+    if (is_user_drawing) {
+      m_inference_active = true;
+    }
+
+    // 2. Run inference (only if active)
+    if (m_inference_active) {
       cv::Mat canvas = m_renderer->get_canvas();
-
-      // Process the image into a tensor
       torch::Tensor tensor = m_processor->process(canvas);
-
-      // Get a prediction from the engine
       m_last_prediction = m_engine->predict(tensor);
 
-      // Check if confidence threshold is met
-      if (m_last_prediction.confidence >= m_confidence_threshold) {
-        m_is_running = false; // Stop inference
+      // NEW STOP CONDITION:
+      // Stop ONLY IF confidence is high AND the user is NOT drawing.
+      if (m_last_prediction.confidence >= m_confidence_threshold &&
+          !is_user_drawing) {
+        m_inference_active = false; // Stop/lock inference
       }
     }
 
     // 3. Update the display
-    // We update the renderer every frame (even if stopped)
-    // to keep the window responsive and show the final result.
-    m_renderer->update(m_last_prediction, !m_is_running);
+    // Pass the "stopped" state to the renderer for styling
+    m_renderer->update(m_last_prediction, !m_inference_active);
   }
 }

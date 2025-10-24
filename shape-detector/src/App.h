@@ -59,7 +59,7 @@ private:
     // --- Configuration & State ---
     std::string m_model_path;
     float m_confidence_threshold;
-    bool m_is_running;          // Controls if inference is active
+    bool m_inference_active;      // Controls if inference is active
     Prediction m_last_prediction; // Stores the last prediction
 };
 

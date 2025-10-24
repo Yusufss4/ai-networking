@@ -99,3 +99,9 @@ void Renderer::on_mouse(int event, int x, int y) {
     m_last_point = cv::Point(x, y);
   }
 }
+
+bool Renderer::is_drawing() const {
+  // Lock the mutex to safely read the drawing state
+  std::lock_guard<std::mutex> lock(m_canvas_mutex);
+  return m_is_drawing;
+}
