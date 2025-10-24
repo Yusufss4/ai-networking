@@ -1,8 +1,9 @@
 import torch
 from PIL import Image
 from torchvision import transforms
-from model import DigitRecognizer
+
 from data import MNIST_MEAN, MNIST_STD
+from model import DigitRecognizer
 
 # Inference with TorchScript or with the Python class; choose one:
 
@@ -10,12 +11,17 @@ USE_TORCHSCRIPT = True
 TS_PATH = "digit_model.ts"
 CKPT_PATH = "digit_model.pth"
 
-preprocess = transforms.Compose([
-    transforms.Grayscale(num_output_channels=1),
-    transforms.Resize((28, 28), interpolation=transforms.InterpolationMode.BILINEAR),
-    transforms.ToTensor(),
-    transforms.Normalize(MNIST_MEAN, MNIST_STD),
-])
+preprocess = transforms.Compose(
+    [
+        transforms.Grayscale(num_output_channels=1),
+        transforms.Resize(
+            (28, 28), interpolation=transforms.InterpolationMode.BILINEAR
+        ),
+        transforms.ToTensor(),
+        transforms.Normalize(MNIST_MEAN, MNIST_STD),
+    ]
+)
+
 
 def predict(image_path: str):
     img = Image.open(image_path).convert("L")
@@ -37,9 +43,11 @@ def predict(image_path: str):
     print(f"Predicted digit: {pred}")
     print("Class probabilities:", [round(p, 4) for p in probs])
 
+
 if __name__ == "__main__":
     # Example: python predict.py path/to/my_digit.png
     import sys
+
     if len(sys.argv) < 2:
         print("Usage: python predict.py <image_path>")
         raise SystemExit(1)

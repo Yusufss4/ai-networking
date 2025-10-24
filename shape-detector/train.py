@@ -1,10 +1,18 @@
 import torch
 import torch.nn as nn
 from torch.optim import Adam
-from model import DigitRecognizer
-from data import get_dataloaders
 
-def train(epochs=2, lr=1e-3, batch_size=64, out_ckpt="digit_model.pth", out_ts="digit_model.ts"):
+from data import get_dataloaders
+from model import DigitRecognizer
+
+
+def train(
+    epochs=2,
+    lr=1e-3,
+    batch_size=64,
+    out_ckpt="digit_model.pth",
+    out_ts="digit_model.ts",
+):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Training on device: {device}")
     train_loader, _ = get_dataloaders(batch_size=batch_size)
@@ -26,7 +34,9 @@ def train(epochs=2, lr=1e-3, batch_size=64, out_ckpt="digit_model.pth", out_ts="
             running_loss += loss.item()
 
             if i % 100 == 0:
-                print(f"[Epoch {epoch+1}/{epochs}] Step {i:04d}  Loss: {loss.item():.4f}")
+                print(
+                    f"[Epoch {epoch+1}/{epochs}] Step {i:04d}  Loss: {loss.item():.4f}"
+                )
 
         print(f"Epoch {epoch+1} avg loss: {running_loss/len(train_loader):.4f}")
 
@@ -37,16 +47,9 @@ def train(epochs=2, lr=1e-3, batch_size=64, out_ckpt="digit_model.pth", out_ts="
     # Save TorchScript (best for deployment)
     model.eval()
     scripted = torch.jit.script(model.cpu())
-    
-    # Optimize for CPU inference (for C++ deployment)
-    try:
-        scripted = torch.jit.optimize_for_inference(scripted)
-        print("Applied CPU optimization to TorchScript model")
-    except Exception as e:
-        print(f"Could not optimize model for inference: {e}")
-    
     scripted.save(out_ts)
     print(f"Saved TorchScript: {out_ts}")
+
 
 if __name__ == "__main__":
     train()

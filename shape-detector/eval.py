@@ -1,9 +1,10 @@
 import torch
 import torch.nn as nn
 from sklearn.metrics import classification_report, confusion_matrix
-import numpy as np
-from model import DigitRecognizer
+
 from data import get_dataloaders
+from model import DigitRecognizer
+
 
 def evaluate(ckpt_path="digit_model.pth", batch_size=64):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -41,6 +42,7 @@ def evaluate(ckpt_path="digit_model.pth", batch_size=64):
 
     print("Confusion Matrix:")
     print(confusion_matrix(all_targets, all_preds))
+
 
 if __name__ == "__main__":
     evaluate()

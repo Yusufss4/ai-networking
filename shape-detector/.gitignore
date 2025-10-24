@@ -1,0 +1,125 @@
+# .gitignore for a combined Python + C++ project
+
+# --- Python ---
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+wheels/
+eggs/
+
+# Virtual environments
+.env
+.env.*
+venv/
+ENV/
+env/
+.venv/
+env.bak/
+venv.bak/
+
+# Testing / coverage / caches
+.pytest_cache/
+.tox/
+.nox/
+.mypy_cache/
+.pyre/
+.pytype/
+.pyright/
+coverage/
+coverage.xml
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs / editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Misc
+*.log
+*.tmp
+*.bak
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- C / C++ ---
+# Object files and libraries
+*.o
+*.obj
+*.lo
+*.la
+*.al
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Debug and symbol files
+*.dSYM/
+*.su
+*.idb
+
+# Build directories and tools
+build/
+Build/
+bin/
+lib/
+lib64/
+x64/
+x86/
+cmake-build-*/
+build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CMakeScripts/
+compile_commands.json
+Makefile
+.ninja_deps
+.ninja_log
+*.cmake
+
+# IDE / editor artifacts (C++ focused)
+*.vcxproj.user
+*.vcxproj.filters
+*.suo
+*.user
+*.ncb
+*.opendb
+*.VC.db
+cmake-build-debug/
+
+# Package manager / dependency caches
+vcpkg_installed/
+.vcpkg_installed/
+conanbuildinfo.txt
+conaninfo.txt
+
+# --- Secrets / local config ---
+.env
+.env.local
+.env.*.local
+secrets.json
+
+# End of file
