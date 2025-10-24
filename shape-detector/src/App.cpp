@@ -82,11 +82,6 @@ void App::run() {
     // Get the user's drawing state
     bool is_user_drawing = m_renderer->is_drawing();
 
-    // If the user starts drawing again, unlock the inference
-    if (is_user_drawing) {
-      m_inference_active = true;
-    }
-
     // 2. Run inference (only if active)
     if (m_inference_active) {
       cv::Mat canvas = m_renderer->get_canvas();
