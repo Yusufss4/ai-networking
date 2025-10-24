@@ -1,0 +1,7 @@
+{
+  "model_path": "models/digit_model.ts",
+  "confidence_threshold": 0.95,
+  "window_width": 640,
+  "window_height": 480,
+  "drawing_thickness": 20
+}

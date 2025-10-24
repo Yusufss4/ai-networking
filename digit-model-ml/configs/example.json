@@ -1,0 +1,17 @@
+{
+  "_comment": "Example training configuration - copy and modify as needed",
+  "training": {
+    "epochs": 15,
+    "batch_size": 128,
+    "learning_rate": 0.0005,
+    "device": "cuda"
+  },
+  "model": {
+    "checkpoint_path": "models/digit_model_custom.pth",
+    "torchscript_path": "models/digit_model_custom.ts"
+  },
+  "data": {
+    "data_dir": "./data",
+    "num_workers": 4
+  }
+}

@@ -1,0 +1,67 @@
+# Build artifacts
+build/
+cmake-build-*/
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+
+# IDE files
+.vscode/
+.idea/
+*.code-workspace
+*.swp
+*.swo
+*~
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+Makefile
+
+# Models (large files)
+models/*.pth
+models/*.pt
+models/*.ts
+models/*.onnx
+
+# Data
+data/
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+digit_recognizer
