@@ -1,0 +1,4 @@
+{
+  "model_path": "models/digit_model.ts",
+  "confidence_threshold": 0.95
+}
