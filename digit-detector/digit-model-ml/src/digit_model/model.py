@@ -1,5 +1,6 @@
 """Neural network model architecture for digit recognition."""
 
+import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
