@@ -24,3 +24,9 @@ Multiple implementations of RDMA.
 | **RoCE v1**    | Ethernet (same L2 subnet)   | Data centers        |
 | **RoCE v2**    | UDP/IP (routable)           | Cloud & DC networks |
 | **iWARP**      | TCP/IP                      | General Ethernet    |
+
+## RDMA Programming
+RDMA apps are developed using libibverbs and librdmacm.
+https://github.com/linux-rdma/rdma-core
+- librdmacm provides connection establishment with IP addressing
+- libibverbs provides an API for other control and data path operations
